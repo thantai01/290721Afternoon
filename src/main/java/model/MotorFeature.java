@@ -3,6 +3,7 @@ package model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "motorfeature")
 public class MotorFeature {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
