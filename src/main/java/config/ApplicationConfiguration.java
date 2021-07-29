@@ -1,5 +1,7 @@
 package config;
 
+import formatter.MotorFeatureFormatter;
+import formatter.MotorTypeFormatter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -26,6 +28,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import service.motorfeature.IMotorFeatureService;
+import service.motorfeature.MotorFeatureServiceImpl;
 import service.motortype.IMotorTypeService;
 import service.motortype.MotorTypeServiceImpl;
 
@@ -51,7 +55,7 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
         this.applicationContext = applicationContext;
     }
 
-    //3 hàm tiếp theo cấu hình Thymleaf:
+
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -122,25 +126,29 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry .addResourceHandler("/**") .addResourceLocations("/assets/");
 //        registry.addResourceHandler("/nhuanh/**") //đường dẫn ảo thay thế cho đường dẫn thật bên dưới (ngắn hơn)
 //                .addResourceLocations("file:" + "/Users/daonhuanh/Downloads/Codegym/nal/");
     }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-//        registry.addFormatter(new CountryFormatter(applicationContext.getBean(CountryService.class)));
+        registry.addFormatter(new MotorTypeFormatter(applicationContext.getBean(MotorTypeServiceImpl.class)));
+        registry.addFormatter(new MotorFeatureFormatter(applicationContext.getBean(MotorFeatureServiceImpl.class)));
     }
 
 
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver getResolver() throws IOException {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setMaxUploadSizePerFile(52428800); //kích thước tối đa
+        resolver.setMaxUploadSizePerFile(52428800);
         return resolver;
     }
     @Bean
     public IMotorTypeService motorTypeService () {
         return new MotorTypeServiceImpl();
+    }
+    @Bean
+    public IMotorFeatureService motorFeatureService() {
+        return new MotorFeatureServiceImpl();
     }
 }
