@@ -26,6 +26,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import service.motortype.IMotorTypeService;
+import service.motortype.MotorTypeServiceImpl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -136,5 +138,9 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         resolver.setMaxUploadSizePerFile(52428800); //kích thước tối đa
         return resolver;
+    }
+    @Bean
+    public IMotorTypeService motorTypeService () {
+        return new MotorTypeServiceImpl();
     }
 }
