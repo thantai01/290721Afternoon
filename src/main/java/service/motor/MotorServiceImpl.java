@@ -32,13 +32,16 @@ public class MotorServiceImpl implements IMotorService{
         motorRepository.deleteById(id);
     }
 
+    @Override
     public Page<Motor> findAll(Pageable pageable) {
         return motorRepository.findAll(pageable);
     }
 
+    @Override
     public Iterable<Motor> findAllByName(String name) {
         return motorRepository.findAllByName(name);
     }
+    @Override
     public Iterable<Motor> findAllByMotorType(long id) {
         return motorRepository.findAllByMotorTypeId(id);
     }

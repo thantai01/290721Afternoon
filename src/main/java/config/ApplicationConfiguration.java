@@ -28,6 +28,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+import service.motor.IMotorService;
+import service.motor.MotorServiceImpl;
 import service.motorfeature.IMotorFeatureService;
 import service.motorfeature.MotorFeatureServiceImpl;
 import service.motortype.IMotorTypeService;
@@ -48,7 +50,7 @@ import java.util.Properties;
 @EnableAspectJAutoProxy
 
 public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationContextAware {
-    private ApplicationContext applicationContext; // khai báo 1 Spring Container
+    private ApplicationContext applicationContext; //  Spring Container
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -150,5 +152,9 @@ public class ApplicationConfiguration implements WebMvcConfigurer, ApplicationCo
     @Bean
     public IMotorFeatureService motorFeatureService() {
         return new MotorFeatureServiceImpl();
+    }
+    @Bean
+    public IMotorService motorService () {
+        return new MotorServiceImpl();
     }
 }

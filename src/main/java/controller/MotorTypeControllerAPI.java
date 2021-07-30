@@ -17,6 +17,7 @@ public class MotorTypeControllerAPI {
     IMotorTypeService motorTypeService;
 
     @GetMapping("/motor-types")
+    @ModelAttribute("motorType")
     public ResponseEntity<Iterable<MotorType>> findAll() {
         Iterable<MotorType> motorTypes = motorTypeService.findAll();
         return new ResponseEntity<>(motorTypes, HttpStatus.OK);
